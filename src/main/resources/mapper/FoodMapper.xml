@@ -19,4 +19,24 @@
         is_new,is_deleted,create_time,
         update_time,img
     </sql>
+    <select id="getList" resultType="cn.gdsdxy.myrestaurant.entity.Food">
+        select f1.*
+        ,f2.food_type_name
+        from t_food f1
+        left join (SELECT f.id,GROUP_CONCAT(t.name SEPARATOR ',') as food_type_name
+        FROM t_food f
+        left join t_food_type_relation tr on f.id = tr.food_id and tr.is_deleted = 0
+        left join t_food_type t on tr.food_type_id = t.id and t.is_deleted = 0
+        WHERE f.is_deleted = 0
+        <if test="search.foodTypeId!= null and search.foodTypeId!= ''">
+            AND t.id = #{search.foodTypeId}
+        </if>
+        group by f.id
+        ) f2 on f1.id = f2.id
+        where f1.is_deleted = 0
+        <if test="search.keyword!= null and search.keyword!= ''">
+            AND f1.name LIKE CONCAT('%',#{search.keyword},'%')
+        </if>
+        order by f1.create_time desc
+    </select>
 </mapper>

@@ -1,4 +1,4 @@
-package cn.gdsdxy.myrestaurant.pojo;
+package cn.gdsdxy.myrestaurant.vo;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import lombok.Data;
  * 登录用户
  */
 @Data
-public class LoginUser {
+public class LoginUserVO {
     /**
      * 用户ID
      */
@@ -23,4 +23,6 @@ public class LoginUser {
      * token值
      */
     private String token;
+
+    private String img;
 }

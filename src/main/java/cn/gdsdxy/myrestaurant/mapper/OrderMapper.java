@@ -1,7 +1,12 @@
 package cn.gdsdxy.myrestaurant.mapper;
 
 import cn.gdsdxy.myrestaurant.entity.Order;
+import cn.gdsdxy.myrestaurant.pojo.SearchOrder;
+import cn.gdsdxy.myrestaurant.vo.OrderVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author 19714
@@ -10,7 +15,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity cn.gdsdxy.myrestaurant.entity.Order
 */
 public interface OrderMapper extends BaseMapper<Order> {
-
+    List<OrderVO> getOrderList(@Param("search") SearchOrder searchOrder);
 }
 
 

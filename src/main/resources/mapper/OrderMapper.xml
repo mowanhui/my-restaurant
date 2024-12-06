@@ -19,4 +19,20 @@
         order_state,is_deleted,create_time,
         update_time
     </sql>
+    <select id="getOrderList" resultType="cn.gdsdxy.myrestaurant.vo.OrderVO">
+        select o.id,o.amount,o.user_id,o.order_state,o.create_time,u.username,u.phone,u.real_name
+        from t_order o,t_user u
+        where o.user_id = u.id
+        and o.is_deleted = 0
+        and u.is_deleted = 0
+        <if test="search.keyword!= null and search.keyword!= ''">
+            and (u.username like concat('%',#{search.keyword},'%')
+            or u.phone = #{search.keyword}
+            or u.real_name like concat('%',#{search.keyword},'%'))
+        </if>
+        <if test="search.orderState!= null and search.orderState!= ''">
+            and o.order_state = #{search.orderState}
+        </if>
+        order by o.create_time desc
+    </select>
 </mapper>

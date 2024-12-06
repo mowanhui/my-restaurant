@@ -1,26 +1,21 @@
-package cn.gdsdxy.myrestaurant.entity;
+package cn.gdsdxy.myrestaurant.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
+import cn.gdsdxy.myrestaurant.entity.OrderFood;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.util.Date;
+import java.util.List;
+
 /**
- * 订单实体类
- * @TableName t_order
+ * 订单信息
  */
-@TableName(value ="t_order")
 @Data
-public class Order implements Serializable {
+public class OrderVO {
     /**
      * 订单Id
      */
-    @TableId
     private String id;
 
     /**
@@ -32,6 +27,22 @@ public class Order implements Serializable {
      * 下单人ID
      */
     private String userId;
+
+    /**
+     * 下单人用户名
+     */
+    private String userName;
+
+    /**
+     * 下单人电话
+     */
+    private String phone;
+
+
+    /**
+     * 下单人真实姓名
+     */
+    private String realName;
 
     /**
      * 订单状态：0-取消订单，1-确认订单，2-完成订单
@@ -50,11 +61,7 @@ public class Order implements Serializable {
     private Date createTime;
 
     /**
-     * 更新时间
+     * 订单菜品列表
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date updateTime;
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    private List<OrderFood> orderFoodList;
 }

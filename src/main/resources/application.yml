@@ -1,32 +1,50 @@
 server:
-  #??
+  #端口
   port: 8080
+  web:
+    resources:
+      static-locations: file:static/,file:d:/file/,classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public/
 spring:
   application:
-    #????
+    #应用名称
     name: my-restaurant
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/my_restaurant?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
-    #mysql??
+    url: jdbc:mysql://localhost:3306/my_restaurant?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    #mysql 用户名
     username: root
-    #mysql??
+    #mysql 密码
     password: 123456
-#mybatisplus??
+#mybatisplus 配置
 mybatis-plus:
-  #mybatis?????????
+  #mybatis 扫描的包
   type-aliases-package: cn.gdsdxy.myrestaurant.entity
-  #mybatisplus?mapper xml????
+  #mybatisplus 扫描的xml
   mapper-locations: classpath:mapper/*.xml
   global-config:
     map-underscore-to-camel-case: true
     db-config:
-      #??????
+      # 逻辑删除属性字段名称
       logic-delete-field: isDeleted
-      #??????
-      logic-delete-value: 1 # ??????(??? 1)
-      #???????
-      logic-not-delete-value: 0 # ??????(??? 0)
-      #NOT_EMPTY ???????NULL???????
+      # 逻辑删除值
+      logic-delete-value: 1
+      # 逻辑未删除值
+      logic-not-delete-value: 0
+      #NOT_EMPTY 空值不做更新
       insert-strategy: not_empty
       update-strategy: not_empty
+
+#api文档配置
+springdoc:
+  api-docs:
+    enabled: true # 开启OpenApi接口
+    path: /v3/api-docs  # 自定义路径，默认为 "/v3/api-docs"
+  swagger-ui:
+    enabled: true
+
+logging:
+  level:
+    cn:
+      gdsdxy:
+        myrestaurant:
+          mapper: debug
